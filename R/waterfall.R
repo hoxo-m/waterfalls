@@ -174,16 +174,17 @@ waterfall <- function(.data = NULL,
       ggplot2::geom_blank() +
       ggplot2::theme(axis.title = ggplot2::element_blank())
   } else {
+    total_position <- number_of_rectangles + 1L
     p <-
       if (scale_y_to_waterfall) {
-        ggplot2::ggplot(data.frame(x = c(factor(1:length(labels)), total_axis_text,
-                                         factor(1:length(labels)), total_axis_text),
+        ggplot2::ggplot(data.frame(x = factor(c(1:length(labels), total_position,
+                                                1:length(labels), total_position)),
                                    y = c(south_edge, north_edge,
                                          south_edge[number_of_rectangles],
                                          north_edge[number_of_rectangles])),
                         ggplot2::aes(x = .data$x, y = .data$y))
       } else {
-        ggplot2::ggplot(data.frame(x = c(factor(1:length(labels)), total_axis_text),
+        ggplot2::ggplot(data.frame(x = factor(c(1:length(labels), total_position)),
                                    y = c(values, north_edge[number_of_rectangles])),
                         ggplot2::aes(x = .data$x, y = .data$y))
       }
